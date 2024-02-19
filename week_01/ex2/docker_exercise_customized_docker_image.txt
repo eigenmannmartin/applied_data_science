@@ -1,0 +1,109 @@
+#-------------------------------------------------------------------------------
+# Data-Science with Docker: Minimal Jupyter notebook
+#-------------------------------------------------------------------------------
+
+--> Run Docker Desktop on your computer ...
+--> In Visual Studio Code, open the folder 'Docker_ADS_Minimal_Jupyter_Notebook'
+--> In Visual Studio Code, open a Terminal window (Upper Menu or CTRL+SHIFT+¨)
+
+#-------------------------------------------------------------------------------
+# In the Terminal window in Visual Studio Code ...
+#-------------------------------------------------------------------------------
+
+#------------------------------------------------
+# To build the Docker image and run the container
+#------------------------------------------------
+
+# Build Docker image
+docker build -t ads_minimal_jupyter_notebook .
+
+# Show docker image
+docker images
+
+# Run Docker container
+docker run -it --rm -p 8888:8888 ads_minimal_jupyter_notebook
+
+# Show only running docker containers
+docker ps
+
+# To access the Jupyter notebook, open the following url in a web browser
+# http://127.0.0.1:8888/lab?token=<token>
+
+# Stop the Jupyter notebook server
+CTRL+C
+
+#------------------------------------------------
+# To push the image to Docker Hub
+#------------------------------------------------
+
+# Create Docker Hub account with username and password
+
+# Login to Docker Hub
+docker login --username=yourhubusername
+
+# Look for image-id
+docker images
+
+# Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+docker tag [image-id] yourhubusername/ads_minimal_jupyter_notebook
+
+# Push the image to Docker Hub
+docker push yourhubusername/ads_minimal_jupyter_notebook
+
+# Run container from image with volume
+docker run -it --rm -v ads_minimal_jupyter_notebook_volume:/home/user -p 8888:8888 yourhubusername/ads_minimal_jupyter_notebook
+
+# To access the Jupyter notebook, open the following url in a web browser
+# http://127.0.0.1:8888/lab?token=<token>
+
+#-------------------------------------------------------------------------------
+# In your Jupyter notebook ...
+#-------------------------------------------------------------------------------
+
+# Look at the two files which were added when the image was built
+- apartments_data_kt_zuerich.ipynb
+- apartments_data_prepared.csv
+
+# Run the Jupyter notebook 'apartments_data_kt_zuerich.ipynb'
+
+# Include one or more additional graphics in the notebook and save it.
+
+# Stop the container (see below) and re-run the container
+
+# Check, whether the files and changes are still availabe in the container 
+
+#-------------------------------------------------------------------------------
+# In the Terminal window in Visual Studio Code ...
+#-------------------------------------------------------------------------------
+
+# Show volumes
+docker volume ls
+
+# Inspect volume
+docker volume inspect ads_jupyter_notebook_volume
+
+#-------------------------------------------------------------------------------
+# In the Terminal window in Visual Studio Code ...
+#-------------------------------------------------------------------------------
+
+# Stop the Jupyter notebook server
+Under Windows: Use CTRL+C to stop the server and shut down all kernels (twice to skip confirmation)
+
+# Show all containers
+# docker ps -a
+
+# Show all running docker containers
+docker ps
+
+# Stop the docker container
+# docker stop [container-id]
+
+# Re-run the container
+docker run -it --rm -v data_science_volume:/home/user -p 8888:8888 mgzhaw19/ads_jupyter_notebook
+
+
+
+
+
+
+

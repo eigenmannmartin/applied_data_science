@@ -1,0 +1,71 @@
+#-------------------------------------------------------------------------------
+# qrcode generator with Docker
+#-------------------------------------------------------------------------------
+
+--> Run Docker Desktop on your computer ...
+--> In Visual Studio Code, open the folder 'Docker_Barcode_Generator'
+--> In Visual Studio Code, open a Terminal window (Upper Menu or CTRL+SHIFT+¨)
+
+#-------------------------------------------------------------------
+# Create a new folder 'QRCode_generator' in your working direktory
+#-------------------------------------------------------------------
+
+e.g. ...\week_01\QRCode_generator
+
+#-------------------------------------------------------------------
+# Create a file 'my_script.py' with the content ...
+#-------------------------------------------------------------------
+
+from pystrich.qrcode import QRCodeEncoder
+encoder = QRCodeEncoder("Docker ist cool!")
+encoder.save( "./QRCode_test.png" )
+print(encoder.get_ascii())
+
+#-------------------------------------------------------------------
+# Create a file named 'Dockerfile' (no extension) in that folder
+#-------------------------------------------------------------------
+
+FROM python:3
+
+ADD my_script.py /
+
+RUN pip install pystrich
+
+CMD [ "python", "./my_script.py" ]
+
+#-------------------------------------------------------------------
+# In the Terminal window in Visual Studio Code ...
+#-------------------------------------------------------------------
+
+# Build the Docker image (don't forget the point at the end of the line)
+docker build -t python-qrcode .
+
+# Run the Docker container
+docker run python-qrcode
+
+#-------------------------------------------------------------------
+# Copy the QR-Code from the container to local file system
+#-------------------------------------------------------------------
+
+# Show all containers an look for the container-id
+docker ps -a
+
+# Commit a container's content into a new image named 'mysnapshot' (284033d07c8b = example container-id)
+docker commit [container-id] mysnapshot
+
+# Show the container's file system using the Bash shell
+docker run -t -i mysnapshot /bin/bash
+ls
+
+# exit the Bash shell
+exit
+
+# Show container container-id of 'mysnapshot'
+docker ps -a
+
+# Copy the .png-File to the local directory (bf09fb3b64c = example container-id of 'mysnapshot')
+docker cp f47c4aa4afd6:QRCode_test.png C:/Users/gell/Desktop/QRCode_test.png
+
+(change 'C:/Users/gell/Desktop/QRCode_test.png' to your local path to save the file)
+
+
