@@ -5,4 +5,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 ADD ./environment.yml .
 RUN conda env create -n adsenv -y -f environment.yml \
-	&& conda init
+	&& conda init zsh \
+    && conda init bash
+RUN chsh -s /usr/bin/zsh codespace

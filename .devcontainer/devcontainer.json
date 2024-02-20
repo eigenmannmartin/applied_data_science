@@ -8,7 +8,14 @@
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
 		"ghcr.io/devcontainers/features/node:1": {}
 	},
-	"postStartCommand": "conda init",
-	"postAttachCommand": "bash && conda activate adsenv"
-	
+	"postCreateCommand": "conda init zsh && conda init",
+	"customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.profiles.linux": { "zsh": { "path": "/bin/zsh" } }
+            }
+        }
+    },
+	"postAttachCommand": "conda activate adsenv"
 }
