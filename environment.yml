@@ -4,6 +4,9 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - numpy=1.26.4
-  - pandas=2.2.0
-  - scikit-learn=1.3.0
+  - numpy
+  - pandas
+  - python=3.12
+variables:
+  VAR1: valueA
+  VAR2: valueB
